@@ -1,0 +1,21 @@
+rootProject.name = 'simplest-demo'
+
+// `-DonlyProto=true` to enable this
+def onlyProto = System.getProperty("onlyProto")?.toString();
+
+if(onlyProto ==null){
+    onlyProto = System.getenv('onlyProto')?.toString();
+}
+
+// If onlyProto property is not set or is not a valid boolean, default to false
+onlyProto = onlyProto != null ? onlyProto.toBoolean() : false
+
+
+// Include
+include('demo-app-proto')
+
+if(onlyProto) {
+    logger.quiet "-DonlyProto=true so no app modules will be included"
+}else{
+    include('demo-app')
+}
